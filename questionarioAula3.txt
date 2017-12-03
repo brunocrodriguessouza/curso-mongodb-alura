@@ -83,6 +83,21 @@ db.alunos.update(
 )
 
 ---------------------------------------------------------------------
+6. [Adicionando mais de um valor no array]
 
+Adicione mais uma habilidade para o Aluno "Felipe"
+
+db.alunos.update(
+	{"nome":"Felipe"},
+	{
+		$push:{
+			habilidades: 
+				{
+					"nome" : "Tecnologia",
+					"nível" : "Avançado"
+				}
+		}
+	}
+)
 
 
