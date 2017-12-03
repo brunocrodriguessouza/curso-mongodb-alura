@@ -1,0 +1,48 @@
+1. [ Buscando com restrições ] 
+Liste todos os alunos com o nome Felipe:
+
+Para restringir as buscas no Mongo precisamos passar um exemplo, 
+no caso {"nome": "Felipe"}, assim o Mongo busca todos que seguem 
+o exemplo:
+
+db.alunos.find({"nome":"Felipe"})
+
+---------------------------------------------------------------------
+2. [ Cláusula AND ] 
+Liste todos os alunos com o nome Felipe e com a data de nascimento de 26/02/1994:
+
+Para buscar usando a clausula and, basta adicionar outro campo no 
+json passado como exemplo:
+
+db.alunos.find({"nome": "Felipe", "data_nascimento": new Date(1994, 02, 26)})
+
+---------------------------------------------------------------------
+3. [Navegando em um documento] 
+Liste todos alunos que têm habilidades em inglês:
+
+db.alunos.find({"habilidades.nome" : "Inglês"}).pretty();
+
+---------------------------------------------------------------------
+4. [Clausula OR e IN]
+
+Busque todos os alunos dos cursos de Sistemas de informação ou 
+de Ciências da computação:
+
+Esse exercício pode ser resolvido através do uso dos operadores $or ou $in
+
+db.alunos.find({$or:
+    [
+        {"curso.nome": "Sistemas de informação"},
+        {"curso.nome": "Ciências da computação"}
+
+    ]
+ }).pretty()
+ 
+ ou
+ 
+db.alunos.find({"curso.nome": {$in:
+    [
+        "Sistemas de informação",
+        "Ciências da computação"
+    ]
+ }}).pretty()
