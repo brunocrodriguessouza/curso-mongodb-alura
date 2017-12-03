@@ -1,0 +1,120 @@
+1. [ Criando uma coleção ] 
+Acesse o cliente MongoDB (mongo) e crie uma coleção chamada alunos.
+
+Acessando o cliente MongoDB:
+mongo
+
+Criando a coleção alunos:
+db.createCollection("alunos")
+
+---------------------------------------------------------------------
+2. [ Inserindo Dados ] 
+Insira um aluno com as seguintes informações:
+
+Nome: Felipe
+Data de nascimento: 26/02/1994
+Notas: [10, 9, 4.5]
+Nome do curso: Sistemas de informação
+Nome da habilidade : Inglês
+Nível da habilidade: Avançado
+
+Para inserir o aluno descrito utilizamos o comando insert():
+db.alunos.insert({
+    "nome": "Felipe",
+    "data_nascimento": new Date(1994, 02, 26),
+    "notas": [10, 9, 4.5],
+    "curso": {
+        "nome": "Sistemas de informação"
+    },
+    "habilidades": [
+        {
+            "nome": "Inglês",
+            "nível": "Avançado"
+        }
+    ] 
+})
+
+---------------------------------------------------------------------
+3. [Vantagens e desvantagens no uso do MongoDB] 
+Cite alguns cenários vantajosos e desvantajosos para o uso do MongoDB
+
+Uma situação onde o MongoDB é bastante usado é quando precisamos 
+realizar buscas por proximidade, como, por exemplo, localizar a 
+pizzaria mais próxima de você.
+
+Situações onde o uso do MongoDB não é indicado são cenários onde 
+precisamos fazer muitas operações de agregação em uma única query,
+isso tem muito custo para o MongoDB.
+
+---------------------------------------------------------------------
+4. [Inserindo mais alunos]
+
+Insira os alunos com as seguintes informações:
+
+Nome: Paulo
+Data de nascimento: 31/12/1979
+Notas: [10, 9, 7]
+Nome do curso: Ciências da computação
+Nome da habilidade : Inglês
+Nível da habilidade: Avançado
+Nome da habilidade : Francês
+Nível da habilidade: Avançado
+
+Nome: Daniela
+Data de nascimento: 17/07/1995
+Notas: [10, 9, 7]
+Nome do curso: Moda
+Nome da habilidade : Alemão
+Nível da habilidade: Básico
+
+db.alunos.insert({
+    "nome": "Paulo",
+    "data_nascimento": new Date(1979, 12, 31),
+    "notas": [10, 9, 7],
+    "curso": {
+        "nome": "Ciências da computação"
+    },
+    "habilidades": [
+        {
+            "nome": "Inglês",
+            "nível": "Avançado"
+        },
+        {
+            "nome": "Francês",
+            "nível": "Avançado"
+        }
+    ] 
+})
+db.alunos.insert({
+    "nome": "Daniela",
+    "data_nascimento": new Date(1995, 07, 17),
+    "notas": [10, 9, 7],
+    "curso": {
+        "nome": "Moda"
+    },
+    "habilidades": [
+        {
+            "nome": "Alemão",
+            "nível": "Básico"
+        }
+    ] 
+})
+
+---------------------------------------------------------------------
+5. [Listando alunos]
+Qual é o comando para listar todos os alunos inseridos até agora?
+
+Para listá-los, basta utilizar o comando find(), sem nenhum argumento:
+db.alunos.find()
+
+Existe uma forma mais bonita para listar os alunos:
+db.alunos.find().pretty()
+
+---------------------------------------------------------------------
+6. [Removendo alunos] 
+
+Como faremos para remover um aluno?
+
+Para remover um aluno usa o seguinte comando:
+db.alunos.remove({"_id": ObjectId("5a233b42067116d239bd2886")})
+---------------------------------------------------------------------
