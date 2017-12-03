@@ -1,0 +1,88 @@
+1. [Substituindo documento] 
+Substitua as informações de um documento pelas suas próprias 
+informações: seu nome, o curso que você gostaria de fazer, etc.
+
+db.alunos.update({"_id": ObjectId("1234565435")}, 
+{
+    "nome": "Bruno",
+    "data_nascimento": new Date(1984, 08, 08),
+    "notas": [10, 9, 10],
+    "curso": {
+        "nome": "Sistemas de Informação"
+    },
+    "habilidades": [
+        {
+            "nome": "Inglês",
+            "nível": "Avançado"
+        }
+    ] 
+}
+)
+
+---------------------------------------------------------------------
+2. [Atualizando um campo do documento] 
+Altere o curso de um aluno para o curso que desejar:
+
+db.alunos.update(
+	{"curso.nome": "Moda"},
+	{
+		$set : {
+			"curso.nome": "Sistemas de Informação"
+		}
+	}
+)
+
+---------------------------------------------------------------------
+3. [Atualizando vários documentos] 
+Atualize o mesmo campo de todos os alunos com as informações 
+que quiser:
+
+Por padrão o método update só atualiza um documento, para que ele 
+atualize mais de um precisamos passar também o parâmetro multi:true
+
+db.alunos.update(
+	{"curso.nome": "Moda"},
+	{
+		$set : {
+			"curso.nome": "Administração"
+		}
+	}, 
+	{
+		multi:true
+	}
+)
+
+---------------------------------------------------------------------
+4. [Adicionando valores em um array]
+
+Adicione mais uma nota para o aluno Felipe:
+
+Para adicionar um valor a um array já existente usamos o operador $push
+
+db.alunos.update(
+	{"nome":"Felipe"},
+	{
+		$push:{
+			notas: 8.5
+		}
+	}
+)
+
+---------------------------------------------------------------------
+5. [Adicionando mais de um valor no array]
+
+Adicione duas notas para o aluno Guilherme:
+
+db.alunos.update(
+	{"nome":"Guilherme"}, 
+	{	
+		$push:{
+			notas:{ $each:[8.5, 10]}
+		}
+	}
+)
+
+---------------------------------------------------------------------
+
+
+
