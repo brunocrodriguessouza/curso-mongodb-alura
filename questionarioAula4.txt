@@ -1,0 +1,30 @@
+1. [Buscando por desigualdade]
+
+Busque todos os alunos com notas menores que 5:
+db.alunos.find({"notas":{$lt:5}})
+
+Busque todos os alunos com notas maiores que 5:
+db.alunos.find({"notas":{$gt:5}})
+
+---------------------------------------------------------------------
+2. [Limitando quantidade de resultado] 
+Busque apenas um aluno do curso de Sistemas de informação:
+
+Para limitar a quantidade de resultados podemos usar o método limit() 
+passando a quantidade ou usar o método findOne() se a quantidade for 1:
+
+db.alunos.findOne({"curso.nome":"Sistemas de informação"})
+
+ou
+
+db.alunos.find({"curso.nome":"Sistemas de informação"}).limit(1)
+
+---------------------------------------------------------------------
+3. [Ordenando os alunos] 
+Ordene os alunos em ordem alfabética crescente.:
+
+Para ordenar usamos o método sort() e passamos com parâmeto um 
+JSON {nome do campo: ordem(1 para crescente e -1 para decrescente)}
+db.alunos.find().sort({"nome": 1})
+
+---------------------------------------------------------------------
