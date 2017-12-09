@@ -1,0 +1,78 @@
+1. [Importando dados para o MongoDB]
+
+Importe o arquivo alunos.json que se encontra
+na mesma pasta dos questionários para a coleção 
+alunos do seu MongoDB:
+
+Para importar arquivos para o MongoDB usamos o comando
+mongoimportcom os parâmetros -c nome da coleção e 
+--jsonArray < nome do arquivo .json
+
+mongoimport -c alunos --jsonArray < alunos.json
+
+---------------------------------------------------------------------
+2. [Criando indice de busca] 
+Crie um índice do 2dsphereno campo localizaçãoda coleção alunos:
+
+Para criar um índice usamos o método createIndex()
+
+db.alunos.createIndex({"localizacao": "2dsphere"})
+
+---------------------------------------------------------------------
+3. [Buscando por proximidade] 
+Busque os alunos mais próximos ao Marcelo:
+
+Para realizar busca por proximidade precisamos passsar a coordenada, 
+o tipo da coordenada (um ponto), o tipo do local onde a busca será 
+realizada (esfera) e o nome do campo onde o mongo colocará a distancia 
+calculada
+
+db.alunos.aggregate([{
+    $geoNear:{
+        "near": {
+            "coordinates":[-23.588055, -46.632403],
+            "type":"Point"
+},
+"distanceField": "distancia.calculada",
+"spherical": true
+}
+}])
+
+---------------------------------------------------------------------
+4. [Limitando a quantidade de dados retornados na busca]
+
+Limite a quantidade de dados retornados em 4:
+
+Para limitar a quantidade precisamos passar o campo num: quantidade
+
+db.alunos.aggregate([{
+    "$geoNear":{
+        "near": {
+            "coordinates":[-23.588055, -46.632403],
+            "type":"Point"
+},
+"distanceField": "distancia.calculada",
+"spherical": true,
+"num":4
+}
+}])
+
+---------------------------------------------------------------------
+5. [Ignorando o documento base]
+
+Ignore o documento que tem o campo distancia.calculada com o valor 0:
+
+db.alunos.aggregate([{
+    "$geoNear": {
+      "near": {
+        "coordinates":[-23.588055, -46.632403],
+        "type":"Point"
+      },
+    "distanceField": "distancia.calculada",
+    "spherical": true
+    }
+  },
+  { $skip: 1 }
+]);
+
+---------------------------------------------------------------------
